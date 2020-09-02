@@ -1,19 +1,14 @@
 import React from "react";
 import "./App.css";
-import UserItem from './components/UserItem'
+import UserItem from './components/UserItem';
 import UserForm from "./components/UserForm";
+import { connect } from 'react-redux';
+import action from './store/action';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      users: []
-    }
-  }
 
   addUser = (newUser) => {
-    this.setState({users:[...this.state.users, newUser]})
+    this.props.action('addUser', newUser)
   }
 
   render() {
@@ -26,7 +21,7 @@ class App extends React.Component {
           {/* List of users */}
           <div className="users">
             <h1>List of users</h1>
-            {this.state.users.map((itm, i) => <UserItem key={i} user={itm} />)}
+            {this.props.users.map((itm, i) => <UserItem key={i} user={itm} />)}
           </div>
         </div>
       </div>
@@ -34,4 +29,14 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return ({
+    users: state.users
+  })
+}
+
+const mapDispatchToProps = {
+  action: action
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
