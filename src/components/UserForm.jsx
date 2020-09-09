@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { v4 as uuid } from "uuid";
 
 export default class UserForm extends Component {
     state = {
@@ -15,6 +16,7 @@ export default class UserForm extends Component {
         e.preventDefault()
         if(!this.state.name || !this.state.email) return
         let newUser = {
+            id: uuid(),
             name: this.state.name, 
             email: this.state.email
         }

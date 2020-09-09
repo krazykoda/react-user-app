@@ -8,7 +8,11 @@ import action from './store/action';
 class App extends React.Component {
 
   addUser = (newUser) => {
-    this.props.action('addUser', newUser)
+    this.props.dispatch('addUser', newUser)
+  }
+
+  delUser = (id) => {
+    this.props.dispatch("deleteUser", id)
   }
 
   render() {
@@ -21,7 +25,7 @@ class App extends React.Component {
           {/* List of users */}
           <div className="users">
             <h1>List of users</h1>
-            {this.props.users.map((itm, i) => <UserItem key={i} user={itm} />)}
+            {this.props.users.map((itm) => <UserItem key={itm.id} id={itm.id} user={itm} delUser={this.delUser} />)}
           </div>
         </div>
       </div>
@@ -36,7 +40,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  action: action
+  dispatch: action
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
