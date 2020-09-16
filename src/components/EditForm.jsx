@@ -1,39 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import action  from "../store/action"
+import action  from "../store/action";
+import { Redirect } from "react-router-dom"
 
 class EditForm extends Component {
-    state = {
-        name: this.props.user? this.props.user.name : "", 
-        email: this.props.user? this.props.user.email : ""
-    }
-
-
-    handleNameChange = (e) => this.setState({name: e.target.value})
+    state = this.props.user;
     
-    handleEmailChange = (e) => this.setState({email: e.target.value})
 
-    editUser = (data) => {
-        this.props.dispatch("editUser", data)
-    }
+    handleChange = ({target}) => this.setState({ [target.name]: target.value })
+    
 
     handleSubmit = (e) => {
         e.preventDefault()
-        if(!this.state.name || !this.state.email) return
-        let newUser = {
-            id: this.props.match.params.id,
-            name: this.state.name, 
-            email: this.state.email
-        }
+        if(!this.state.name || !this.state.email) return;
+        let newUser = this.state;
 
-        this.editUser(newUser)
+        this.props.dispatch("editUser", newUser);
 
-        this.setState({name: '', email: ''})
-        this.props.history.push("/")
+        this.setState({name: '', email: ''});
+        this.props.history.push("/");
       }
     
 
     render() {
+        if(!this.state) return <Redirect to="/" />
         return (
             <div className="App">
                 <div className="form2">
@@ -41,8 +31,9 @@ class EditForm extends Component {
                     <input 
                     type="text" 
                     placeholder="Name"
+                    name="name"
                     value={this.state.name} 
-                    onChange={this.handleNameChange}
+                    onChange={this.handleChange}
                     />
 
                     <br />
@@ -50,8 +41,9 @@ class EditForm extends Component {
                     <input 
                     type="email" 
                     placeholder="Email" 
+                    name="email"
                     value={this.state.email}
-                    onChange={this.handleEmailChange}
+                    onChange={this.handleChange}
                     />
 
                     <br />

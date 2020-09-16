@@ -4,11 +4,19 @@ import "./index.css";
 import App from "./App";
 import EditForm from "./components/EditForm"
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
+import { getFirebase, reduxReactFirebase } from "react-redux-firebase";
+import { getFirestore, reduxFirestore } from "redux-firestore";
+import thunk from "redux-thunk";
 import reducer from "./store/reducer";
+import firebase from "./firebase/config";
 
-const store = createStore(reducer);
+const store = createStore(reducer, compose(
+ applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })), 
+ reduxReactFirebase(firebase), 
+ reduxFirestore(firebase)
+));
 
 ReactDOM.render(
   <React.StrictMode>
