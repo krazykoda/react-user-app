@@ -9,8 +9,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, users: [...state.users, user] };
 
     case "deleteUser":
-      const newUsers = state.users.filter(user => user.id !== action.payload)
-      return { ...state, users: newUsers }
+      const newUsers = state.users.filter(user => user.id !== action.payload);
+      return { ...state, users: newUsers };
 
     case "editUser":
       const updatedUsers = state.users.map(user => {
@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action) {
         }else {
           return user
         }
-      })
+      });
       
       return { ...state, users: updatedUsers };
       
