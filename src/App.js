@@ -3,9 +3,13 @@ import "./App.css";
 import UserItem from './components/UserItem';
 import UserForm from "./components/UserForm";
 import { connect } from 'react-redux';
-import action from './store/action';
+import action, { getUsers } from './store/action';
 
 class App extends React.Component {
+
+  componentDidMount() {
+    this.props.getUsers();
+  }
 
   addUser = (newUser) => {
     this.props.dispatch('addUser', newUser)
@@ -40,7 +44,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  dispatch: action
+  dispatch: action,
+  getUsers
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

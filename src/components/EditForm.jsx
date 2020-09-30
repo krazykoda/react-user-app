@@ -15,7 +15,7 @@ class EditForm extends Component {
         if(!this.state.name || !this.state.email) return;
         let newUser = this.state;
 
-        this.props.dispatch("editUser", newUser);
+        this.props.dispatch("addUser", newUser);
 
         this.setState({name: '', email: ''});
         this.props.history.push("/");

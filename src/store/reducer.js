@@ -22,6 +22,9 @@ export default function reducer(state = initialState, action) {
       });
       
       return { ...state, users: updatedUsers };
+
+    case "allUsers": 
+      return { users: action.payload };
       
     default:
       return state;
