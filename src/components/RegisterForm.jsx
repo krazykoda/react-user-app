@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { Link } from "react-router-dom"
 import { emailRegistration } from "../store/action"
 
 function RegisterForm({emailRegistration, auth, history}) {
@@ -27,6 +28,7 @@ function RegisterForm({emailRegistration, auth, history}) {
                 </div>
 
                 <button type="submit">Submit</button>
+                <Link to="/login">Login</Link>
             </form>
         </div>
     )
