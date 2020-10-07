@@ -9,8 +9,11 @@ import { Provider } from "react-redux";
 import { getFirebase, reduxReactFirebase } from "react-redux-firebase";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import thunk from "redux-thunk";
-import reducer from "./store/reducer";
+import reducer from "./allReducers";
 import firebase from "./firebase/config";
+import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
+import Protected from "./components/Protected"
 
 const store = createStore(reducer, compose(
  applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })), 
@@ -22,8 +25,10 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <Route exact path="/" component={App} />
-        <Route exact path="/edit/:id" component={EditForm} />
+        <Protected exact path="/" Component={App} />
+        <Protected exact path="/edit/:id" component={EditForm} />
+        <Route path="/register" component={RegisterForm} />
+        <Route path="/login" component={LoginForm} />
       </Router>
     </Provider>
   </React.StrictMode>,

@@ -3,7 +3,7 @@ import "./App.css";
 import UserItem from './components/UserItem';
 import UserForm from "./components/UserForm";
 import { connect } from 'react-redux';
-import action, { getUsers } from './store/action';
+import action, { getUsers, logout } from './store/action';
 
 class App extends React.Component {
 
@@ -22,6 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <button onClick={this.props.logout} >Logout</button>
         <div className="container">
           {/* Form to add new user */}
           <UserForm addUser={this.addUser} />
@@ -39,13 +40,14 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return ({
-    users: state.users
+    users: state.userState.users
   })
 }
 
 const mapDispatchToProps = {
   dispatch: action,
-  getUsers
+  getUsers,
+  logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

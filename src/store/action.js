@@ -57,6 +57,48 @@ export const getUsers = () => {
   }
 }
 
+//Auth Registration action
+export const emailRegistration = (email, password) => {
+  return (dispatch, state, { getFirebase }) => {
+    const firebase = getFirebase().auth()
+    firebase.createUserWithEmailAndPassword(email, password)
+    .then(res => console.log(res))
+    .catch(err => console.log(err)) 
+  }
+}
+
+//Auth Login action
+export const emailLogin = (email, password) => {
+  return (dispatch, state, { getFirebase }) => {
+    const firebase = getFirebase().auth()
+    firebase.signInWithEmailAndPassword(email, password)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+}
+
+
+//Logout User
+export const logout = () => {
+  return (dispatch, state, {getFirebase}) => {
+    const firebase = getFirebase().auth()
+    firebase.signOut()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+} 
+
+//sign in with google
+export const googleSignin = () => {
+  return (dispatch, state, {getFirebase}) => {
+    const firebase = getFirebase()
+    let provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(provider)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+} 
+
 
 
 export default action;
